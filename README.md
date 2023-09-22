@@ -33,7 +33,7 @@ Neste projeto criei uma versão simplificada de um **site de notícias** que con
 2. Instale as dependências e inicialize o projeto
   * Instale as dependências:
     * `npm install`
-  * Registre-se no [site da API](https://newsapi.org/) e obtenha a sua `key`:
+  * Registre-se no [site da API](https://gnews.io/) e obtenha a sua `key`:
     * Ex: `78gdsf9gsd9f5gsdf4g2daf1gsdafg3y`
   * Crie um arquivo `.env` na raíz do projeto, abra-o e adicione a sua key:
     * `VITE_API_KEY="sua_key"`
