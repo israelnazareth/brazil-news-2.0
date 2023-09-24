@@ -6,6 +6,11 @@ import "./Header.css";
 export default function Header() {
   const { setDataOnLocalStorage } = useMyContext();
 
+  const topFunction = () => {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  };
+
   const showCategories = () => {
     const list = document.querySelector(".listNavbar");
     window.innerWidth < 900
@@ -13,91 +18,70 @@ export default function Header() {
       : list?.classList.remove("opened");
   };
 
+  const setDataAndBackToTop = (category: string) => {
+    setDataOnLocalStorage(category);
+    showCategories();
+    topFunction();
+  };
+
   return (
     <div className="header">
       <div className="headerContent">
-        <h2 className="logo" onClick={() => setDataOnLocalStorage("general")}>
+        <h2 className="logo" onClick={() => setDataAndBackToTop("general")}>
           Brazil News
         </h2>
         <ul className="listNavbar">
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("general");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("general")}
           >
             Geral
           </li>
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("world");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("world")}
           >
             Mundo
           </li>
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("nation");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("nation")}
           >
             Brasil
           </li>
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("business");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("business")}
           >
             Negócios
           </li>
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("technology");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("technology")}
           >
             Tecnologia
           </li>
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("entertainment");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("entertainment")}
           >
             Entretenimento
           </li>
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("sports");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("sports")}
           >
             Esporte
           </li>
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("science");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("science")}
           >
             Ciência
           </li>
           <li
             className="itemNavbar"
-            onClick={() => {
-              setDataOnLocalStorage("health");
-              showCategories();
-            }}
+            onClick={() => setDataAndBackToTop("health")}
           >
             Saúde
           </li>
