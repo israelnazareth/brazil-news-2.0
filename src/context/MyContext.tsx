@@ -120,8 +120,11 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
         const difference = now.getTime() - lastTime.getTime();
         const differenceInHours = difference / 1000 / 60 / 60;
         if (Math.floor(differenceInHours) > 6) {
+          const filteredCategories = parsedData.filter(
+            (item: Category) => item.category !== category
+          );
           const payload = await createOrUpdateCategory(category);
-          const newPayload = [...parsedData, ...payload];
+          const newPayload = [...filteredCategories, ...payload];
           await asyncLocalStorage.setItem("data", JSON.stringify(newPayload));
           setPayload({ payload: newPayload });
         }
