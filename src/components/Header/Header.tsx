@@ -27,7 +27,7 @@ export default function Header() {
   return (
     <div className="header">
       <div className="headerContent">
-        <h2 className="logo" onClick={() => setDataAndBackToTop("general")}>
+        <h2 className="logo" onClick={() => setDataOnLocalStorage("general")}>
           Brazil News
         </h2>
         <ul className="listNavbar">
