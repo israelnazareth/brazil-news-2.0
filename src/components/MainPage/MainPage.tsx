@@ -1,18 +1,25 @@
-import { useMyContext } from '../../context/MyContext'
-import Cards from '../Cards/Cards'
-import './MainPage.css'
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useMyContext } from "../../context/MyContext";
+import Cards from "../Cards/Cards";
+import "./MainPage.css";
 
 export default function Headlines() {
-  const { articles } = useMyContext()
+  const { title, loading } = useMyContext();
 
   return (
     <div>
-      { articles?.articles?.length ? <div>
-        <h1 className='newsType' id="home">{articles.type}</h1>
-        <div className='main'>
-          <Cards />
+      {loading ? (
+        <h1 className="loading">Carregando...</h1>
+      ) : (
+        <div>
+          <h1 className="newsType" id="home">
+            {title}
+          </h1>
+          <div className="main">
+            <Cards />
+          </div>
         </div>
-      </div> : <h1 className="noService">Desculpe o transtorno, estamos fora do ar no momento.</h1> }
+      )}
     </div>
-  )
+  );
 }
