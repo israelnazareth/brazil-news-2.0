@@ -21,6 +21,7 @@ export default function Cards() {
                   className="card"
                   style={{ backgroundImage: `url("${article.image}"` }}
                 >
+                  {/* <img className="cardImage" src={article.image} alt="" /> */}
                   <p className="cardSource">
                     {article.source.name.toUpperCase()}
                   </p>
