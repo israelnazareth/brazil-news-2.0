@@ -7,7 +7,7 @@ dotenv.config();
 const app = express();
 const PORT = 5000;
 
-app.get('/app/:category', async (req, res) => {
+app.get('/api/:category', async (req, res) => {
   try {
     const { category } = req.params;
     const response = await axios.get(
