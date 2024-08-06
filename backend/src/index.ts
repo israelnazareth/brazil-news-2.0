@@ -13,7 +13,6 @@ app.get('/app/:category', async (req, res) => {
     const response = await axios.get(
       `https://gnews.io/api/v4/top-headlines?category=${category}&country=br&max=12&apikey=${process.env.API_KEY}`
     );
-    console.log('🚀 ~ app.get ~ res.json(response.data):', response.data);
     res.send(response.data);
   } catch (error: unknown) {
     if (error instanceof Error) {
