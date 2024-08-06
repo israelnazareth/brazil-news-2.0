@@ -2,9 +2,7 @@ import axios from "axios"
 
 export const fetchByCategory = async (category: string) => {
   try {
-    const response = await axios.get(`/api/${category}`, {
-      baseURL: 'http://localhost:5000/' || 'https://brazil-news.vercel.app/'
-    })
+    const response = await axios.get(`/api/${category}`)
     return await response.data.articles
   } catch (error: unknown) {
     if (error instanceof Error) {
