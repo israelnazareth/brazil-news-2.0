@@ -23,7 +23,7 @@ export default function Cards() {
                 >
                   {/* <img className="cardImage" src={article.image} alt="" /> */}
                   <p className="cardSource">
-                    {article.source.name.toUpperCase()}
+                    {article.source.toUpperCase()}
                   </p>
                   <div className="cardTexts">
                     <h1 className="cardTitle">{article.title}</h1>

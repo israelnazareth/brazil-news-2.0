@@ -8,10 +8,7 @@ export interface Article {
   description: string;
   image: string;
   publishedAt: Date;
-  source: {
-    name: string;
-    url: string;
-  };
+  source: string;
   title: string;
   url: string;
 }
@@ -41,10 +38,10 @@ type ContextType = {
   payload: Payload;
   setPayload: React.Dispatch<React.SetStateAction<Payload>>;
   setDataOnLocalStorage: (category: string) => void;
-  asyncLocalStorage: {
-    setItem: (key: string, value: string) => Promise<void>;
-    getItem: (key: string) => Promise<string | null>;
-  };
+  // asyncLocalStorage: {
+  //   setItem: (key: string, value: string) => Promise<void>;
+  //   getItem: (key: string) => Promise<string | null>;
+  // };
 };
 
 const MyContext = createContext<ContextType | undefined>(undefined);
@@ -80,27 +77,34 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     return payload;
   };
 
-  const asyncLocalStorage = {
-    setItem: async (key: string, value: string) => {
-      await Promise.resolve();
-      localStorage.setItem(key, value);
-    },
-    getItem: async (key: string) => {
-      await Promise.resolve();
-      return localStorage.getItem(key);
-    },
-  };
+  // const asyncLocalStorage = {
+  //   setItem: async (key: string, value: string) => {
+  //     await Promise.resolve();
+  //     localStorage.setItem(key, value);
+  //   },
+  //   getItem: async (key: string) => {
+  //     await Promise.resolve();
+  //     return localStorage.getItem(key);
+  //   },
+  // };
 
   const setDataOnLocalStorage = async (category: string = "general") => {
     setLoading(true);
     setTitle(categoryLabel[category]);
 
-    const localData = await asyncLocalStorage.getItem("data");
-    const parsedData = localData ? JSON.parse(localData) : null;
+    const localData = await createOrUpdateCategory(category);
+    const parsedData = JSON.parse(
+      localStorage.getItem("data") || JSON.stringify([])
+    );
+
+    if (parsedData.length === 0) {
+      setPayload({ payload: localData });
+      setLoading(false);
+    }
 
     if (!parsedData) {
       const payload = await createOrUpdateCategory(category);
-      await asyncLocalStorage.setItem("data", JSON.stringify(payload));
+      // await asyncLocalStorage.setItem("data", JSON.stringify(payload));
       setPayload({ payload });
       setLoading(false);
     } else {
@@ -111,7 +115,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
       if (!foundCategory) {
         const payload = await createOrUpdateCategory(category);
         const newPayload = [...parsedData, ...payload];
-        await asyncLocalStorage.setItem("data", JSON.stringify(newPayload));
+        // await asyncLocalStorage.setItem("data", JSON.stringify(newPayload));
         setPayload({ payload: newPayload });
       }
       if (foundCategory) {
@@ -125,7 +129,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
           );
           const payload = await createOrUpdateCategory(category);
           const newPayload = [...filteredCategories, ...payload];
-          await asyncLocalStorage.setItem("data", JSON.stringify(newPayload));
+          // await asyncLocalStorage.setItem("data", JSON.stringify(newPayload));
           setPayload({ payload: newPayload });
         }
       }
@@ -159,7 +163,7 @@ function ContextProvider({ children }: { children: React.ReactNode }) {
     setDataOnLocalStorage,
     loading,
     setLoading,
-    asyncLocalStorage,
+    // asyncLocalStorage,
   };
 
   return <MyContext.Provider value={context}>{children}</MyContext.Provider>;
